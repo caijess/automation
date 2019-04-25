@@ -1,7 +1,7 @@
 {
   "name": "template-automation",
   "version": "1.0.1",
-  "description": "auto make page",
+  "description": "auto make page test",
   "private":false,
   "main": "index.js",
   "bin": {
