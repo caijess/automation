@@ -2,6 +2,7 @@
   "name": "template-automation",
   "version": "1.0.1",
   "description": "auto make page",
+  "private":false,
   "main": "index.js",
   "bin": {
     "autopage": "./index.js"
