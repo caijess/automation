@@ -1,26 +1,9 @@
 {
-  "filter":[
-    {
-      "type":"selector/input/date",
-      "label":"城市",
-      "key":"city"
-      
-    }
-  ],
-  "filterUrl":"selectorurl",
-  "isExport":"bo/exporter",
-  "tableHeaderUrl": "bo/tableHeader",
-  "tableHeader": [
-   {
-     "label": "策略",
-     "prop": "strategy",
-     "width": 267,
-     "url":"tableContent",
-     "type": "selection/index/expand",
-     "jumpPayload":"time&kpiid"
-   }
-  ],
-  "tableDataUrl":"bo/tableData",
+  "fileName":"",
+  "fileKey":"",
+  "filterUrl":"/report/getFilters",
+  "isExport": "/report/exporter",
+  "tableHeaderUrl": "/report/getTableHeader",
+  "tableDataUrl": "/report/getTableData",
   "hasPagination":true
-
 }

@@ -1,18 +1,19 @@
 // template.js
 module.exports = {
-  vueTemplate:(type, compoenntName,opts={}) => {
+  vueTemplate:(opts={}) => {
+    console.log(opts);
     return `<template>
-  <div class="${compoenntName}">
-    ${compoenntName}组件
+  <div class="${opts.fileName}">
+    ${opts.fileName}组件
   </div>
 </template>
 <script>
 export default {
-  name: '${compoenntName}'
+  name: '${opts.fileName}'
 }
 </script>
 <style lang="scss" scoped>
-.${compoenntName} {
+.${opts.fileName} {
 
 }
 </style>

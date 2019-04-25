@@ -2,24 +2,27 @@
 const chalk = require('chalk')
 const path = require('path')
 const fs = require('fs')
-
+const root = process.cwd();
 module.exports={
-resolve :(...file) => path.resolve(__dirname, '..', ...file),
+resolve: file=> path.resolve(root, file),
 log : message => console.log(chalk.green(`${message}`)),
 successLog : message => console.log(chalk.blue(`${message}`)),
 errorLog :error => console.log(chalk.red(`${error}`)),
+warnLog:warn => console.log(chalk.yellow(`${warn}`)),
 generateFile : (path, data) => {
   if (fs.existsSync(path)) {
-    errorLog(`${path}文件已存在`)
+    console.log(chalk.red(`文件${path}已存在`))
     return
   }
   return new Promise((resolve, reject) => {
+      console.log(chalk.blue(`文件${path}正在生成，请稍后`))
     fs.writeFile(path, data, 'utf8', err => {
       if (err) {
-        errorLog(err.message)
+        console.log(chalk.red(`${err.message}`))
         reject(err)
       } else {
         resolve(true)
+         console.log(chalk.green(`文件创建成功，退出本次流程`))
       }
     })
   })
