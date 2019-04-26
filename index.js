@@ -25,9 +25,6 @@ program
     } else {
       utils.errorLog('您未设置全部参数，若不知道参数，请使用autopage -h')
     }
-    // dir.Command.Option(option => {
-    //   // console.log(option)
-    // });
   })
   .parse(process.argv);
 
@@ -49,6 +46,8 @@ async function setAllCommander() {
   ]).then(async answers => {
     try {
       let templatejson = templage
+      templatejson.fileKey = fileKey;
+      templatejson.fileName = fileName;
       if (!answers.isAuto) {
         await isExporter();
         await isPagination();
@@ -74,7 +73,6 @@ async function isExporter() {
     type: 'input',
     name: 'isExporter',
     message: `是否需要导出链接,如不需要导出功能则跳过`,
-    default: '/report/expoler'
   }]).then(ans => {
     ans.isExporter !== '' && (jsonTemplate.isExport = ans.isExporter);
     return ans;
@@ -103,6 +101,7 @@ async function getTableDataUrl() {
     type: 'input',
     name: 'tableDataUrl',
     message: `请输入表格数据的接口`,
+    default: '/report/getTableData'
   }]).then(ans => {
     jsonTemplate.tableDataUrl = ans.tableDataUrl;
     return ans;
@@ -261,7 +260,7 @@ async function setTableHeader(isSetting) {
 }
 /**
  * 
- * @param {*} questions 
+ * 
  */
 async function setHeaderContent() {
   let result = {};
@@ -276,7 +275,8 @@ async function setHeaderContent() {
       choices: [
         'selection',
         'index',
-        'expand'
+        'expand',
+        'default'
       ]
     }, {
       type: 'input',

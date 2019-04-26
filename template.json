@@ -1,9 +1,9 @@
 {
-  "fileName":"",
-  "fileKey":"",
-  "filterUrl":"/report/getFilters",
+  "fileName": "",
+  "fileKey": "",
+  "filterUrl": "/report/filterCondition",
   "isExport": "/report/exporter",
   "tableHeaderUrl": "/report/getTableHeader",
-  "tableDataUrl": "/report/getTableData",
-  "hasPagination":true
+  "tableDataUrl": "/report/getFormTableData",
+  "hasPagination": true
 }
