@@ -1,7 +1,7 @@
 {
   "fileName":"",
   "fileKey":"",
-  "filterUrl":"/report/getFilters",
+  "filterUrl":"/report/filterCondition",
   "isExport": "/report/exporter",
   "tableHeaderUrl": "/report/getTableHeader",
   "tableDataUrl": "/report/getTableData",
