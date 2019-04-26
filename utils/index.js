@@ -5,6 +5,7 @@ const fs = require('fs')
 const root = process.cwd();
 module.exports={
 resolve: file=> path.resolve(root, file),
+dirResolve:file=>path.resolve(__dirname,'..',file),
 log : message => console.log(chalk.green(`${message}`)),
 successLog : message => console.log(chalk.blue(`${message}`)),
 errorLog :error => console.log(chalk.red(`${error}`)),
@@ -22,7 +23,7 @@ generateFile : (path, data) => {
         reject(err)
       } else {
         resolve(true)
-         console.log(chalk.green(`文件创建成功，退出本次流程`))
+        
       }
     })
   })

@@ -1,15 +1,15 @@
 <template>
-  <div class="table">
-    table组件
+  <div class="ddd">
+    ddd组件
   </div>
 </template>
 <script>
 export default {
-  name: 'table'
+  name: 'ddd'
 }
 </script>
 <style lang="scss" scoped>
-.table {
+.ddd {
 
 }
 </style>
