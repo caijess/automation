@@ -144,12 +144,6 @@ export default {
   watch: {
   },
   methods: {
-    ...mapGetters('common', [
-      'getFilterDataMap'
-    ]),
-    ...mapActions('common', [
-      'getDataMap'
-    ]),
     /**
        * 判断表格中的哪些列需要排序.
        * @method sortAble
