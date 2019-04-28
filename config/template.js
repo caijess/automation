@@ -2,19 +2,22 @@
 module.exports = {
   vueTemplate: (opts = {}) => {
     console.log(opts);
+    let name =JSON.stringify(opts.fileName);
     opts = JSON.stringify(opts);
+    console.log(name);
+    console.log(opts);
     return `<template>
     <div class="right-main">
       <el-row>
         <el-col :span="24">
-          <selectInputExport ref="conditionHead" :textContext="textContext" :selectContext="selectContext" :datePickerContext="datePickerContext" :exportInfo="exportInfo" @query="clickQuery" @exportTable="exportTable"></selectInputExport>
+          <selectInputExport ref="conditionHead" :textContext="textContext" :selectContext.sync="selectContext" :datePickerContext="datePickerContext" :exportInfo="exportInfo" @query="clickQuery" @exportTable="exportTable" @getSelectChange="getSelectChange"></selectInputExport>
         </el-col>
       </el-row>
       <el-row class="right-main__table">
-        <reportTable v-if="hasData"  ref="reportTable" @getPages="getPageInfo" :tableHeader="tableHeader" :type="type" :showPage="pageInfo.isShow" :list="tableinfo" :totalCount="pageInfo.totalCount">
-            <template v-for='(jumpHead,index) in  defineHeader.jumpHeader'  #[jumpHead.prop]='row'>
+        <reportTable v-if="hasData" ref="reportTable" @getPages="getPageInfo" :tableHeader="tableHeader" :type="type" :showPage="pageInfo.isShow" :list="tableinfo" :totalCount="pageInfo.totalCount">
+          <template v-for='(jumpHead,index) in  defineHeader.jumpHeader' #[jumpHead.prop]='row'>
             <div :key="jumpHead.prop">
-           <span class="table-cell__click" @click="cellJump(row,index)">{{row .rowData}}</span>
+              <span class="table-cell__click" @click="cellJump(row,index)">{{row .rowData}}</span>
             </div>
           </template>
         </reportTable>
@@ -25,16 +28,16 @@ module.exports = {
   
   <script>
   import axios from 'axios';
-  import reportTable from './components/table.vue';
+  import reportTable from './components/table';
   import selectInputExport from './components/condition';
   
   
   export default {
-    name: 'reportForm',
-    data() {
-      return {
-        reportFormInfo: ${opts},
-        hasData: false,
+      name: ${name},
+      data() {
+        return {
+          reportFormInfo: ${opts},
+          hasData: false,
         // 输入框样式
         textContext: {
           isShow: false, // 是否显示
@@ -92,11 +95,12 @@ module.exports = {
          */
       async analysisReportInfo() {
         const keys = Object.keys(this.reportFormInfo);
-        if (keys.includes('filterUrl')) { // 从接口请求查询条件
-          this.getFormCondition(this.reportFormInfo.filterUrl); // 获取查询条件
-        } else {
+        // 查询条件两种情况,1、只有filterUrl，根据接口去查找条件返回；2、filter查询项，根据filterUrl，select的选项；
+        if (keys.includes('filter')) { // 获取查询条件
           this.filterConditon = this.reportFormInfo.filter;
           this.getInitOptions(this.reportFormInfo.filterUrl); // 获取option值
+        } else {
+          this.getFormCondition(this.reportFormInfo.filterUrl); // 从接口请求查询条件
         }
         if (keys.includes('tableHeaderUrl')) { // 判断是否配置tabletableHeaderUrl
           await this.getTableHeader(this.reportFormInfo.tableHeaderUrl); // 获取查询条件
@@ -114,6 +118,10 @@ module.exports = {
           this.pageInfo.isShow = this.reportFormInfo.hasPagination;
         }
       },
+      /**
+         * 点击跳转事件.
+         * @method cellJump
+         */
       cellJump(row, index) {
         const head = this.defineHeader.jumpHeader[index];
         const params = head.jumpPayload.split('&');
@@ -123,12 +131,14 @@ module.exports = {
         });
         this.$router.push({ path: head.url, query });
       },
+      /**
+         * 自定义表头数据.
+         * @method getSlotHeader
+         */
       getSlotHeader() {
         this.tableHeader.forEach((item) => {
           if (Object.keys(item).includes('url')) {
             this.defineHeader.jumpHeader.push(item);
-            console.log(item.prop);
-            // this.jumpHeader = item;
           }
         });
       },
@@ -180,7 +190,7 @@ module.exports = {
           this.textContext.isShow = true;
           for (const item of conditionGroup.input) {
             this.textContext.data.push({
-              name:item.label + '：', // 输入框前面名称
+              name: item.label + '：', // 输入框前面名称
               span: 6, // 栅格宽度
               input: '', // 输入框初始化内容
               placeholder: '请输入' + item.label + '进行搜索', // 提示语
@@ -200,7 +210,9 @@ module.exports = {
               style: 'width:70%;',
               span: 5,
               options: item.options,
-              key: item.key
+              key: item.key,
+              columnId: item.columnId,
+              parentColumnId: item.parentColumnId
             });
           }
         }
@@ -277,6 +289,29 @@ module.exports = {
         this.queryTable(info);
       },
       /**
+         * 接受子组件传递的值，下拉框值改变
+         * @method getSelectChange
+         * @param {Object} data
+         */
+      getSelectChange(selOption) {
+        this.selectContext.data.forEach(async (item, index) => {
+          if (selOption.columnId === item.parentColumnId) { // 选中selOption，儿子改变
+            item.value = '';
+            const param = {
+              columnId: item.columnId,
+              parentColumnId: item.parentColumnId,
+              value: selOption.value
+            };
+            const url = this.reportFormInfo.getChildSel;
+            const data = await this.getFormTableData({ url, data: param });
+            // this.selectContext.data[index].name = 'tewst';
+            this.$set(this.selectContext.data[index], 'name', 'tewst');
+            this.$set(this.selectContext.data[index], 'options', [{ label: '小金县',
+              value: '420000197910098132' }]);
+          }
+        });
+      },
+      /**
          * 获取查询参数
          * @method getConditionParams
          * @return {Object} 查询参数.
@@ -300,6 +335,11 @@ module.exports = {
         }
         return params;
       },
+      /**
+         * get请求
+         * @method getFormFilter
+         * @return {Object} 查询参数.
+         */
       getFormFilter(url,
         params = {}) {
         return new Promise((resolve, reject) => {
@@ -312,6 +352,11 @@ module.exports = {
           });
         });
       },
+      /**
+         * post请求
+         * @method getFormTableData
+         * @return {Object} 查询参数.
+         */
       getFormTableData({
         url,
         data = {},
@@ -347,6 +392,7 @@ module.exports = {
       width: 100%;
       height: 100%;
       overflow: auto;
+  
       .right-main__table {
         min-height: -moz-calc(100% - 110px);
         min-height: -webkit-calc(100% - 110px);
@@ -357,14 +403,17 @@ module.exports = {
         // position: relative;
       }
     }
+  
     .table-cell__click {
-    font-size: 12px;
-    color: #1584BC;
-    &:hover {
-      cursor: pointer;
-    }
+      font-size: 12px;
+      color: #1584BC;
+  
+      &:hover {
+        cursor: pointer;
+      }
     }
   </style>
+  
   `
   },
   entryTemplate: `import Main from './main.vue'

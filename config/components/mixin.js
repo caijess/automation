@@ -1,5 +1,5 @@
 
-const table = {
+export const table = {
   data() {
     return {
       // 这些东西我们在list中处理，就不需要在每个页面再去手动的做这个了。
@@ -104,4 +104,85 @@ const table = {
     });
   }
 };
-export default table;
+
+export const selects = {
+  data() {
+    return {
+      value: '',
+      options: '',
+      placeholder: '请选择', // 占位符
+      clearable: false, // 可清空单选
+      style: {
+
+      }, // 添加样式
+      multiple: false, // 是否多选
+      disabled: false, // 禁用状态
+      filterable: false, // 是否可搜索
+      name: '下拉框', // 下拉框前面名称
+      size: 'medium' // 大小
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.value = this.selectContext.value;
+      this.options = this.selectContext.options;
+      this.placeholder = this.selectContext.placeholder;
+      this.clearable = this.selectContext.clearable;
+      this.style = this.selectContext.style;
+      this.multiple = this.selectContext.multiple;
+      this.disabled = this.selectContext.disabled;
+      this.filterable = this.selectContext.filterable;
+      this.name = this.selectContext.name;
+      this.size = this.selectContext.size || this.size;
+    },
+    getSelectChange(data) {
+      this.$emit('getSelectChange', data);
+    }
+  }
+};
+
+export const input = {
+  data() {
+    return {
+      name: '文本输入框',
+      input: '',
+      type: '', // 类型
+      placeholder: '请输入查询条件', // 占位符
+      clearable: true, // 可清空单选
+      size: 'medium', // 输入框尺寸
+      inputDisable: false,
+      suffixIcon: 'el-icon-search',
+      showPwd: true, // 是否显示密码
+      style: {
+
+      } // 添加样式
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  computed: {
+  },
+  methods: {
+    getTrim() {
+      return this.trim ? this.input.replace(/^\s+|\s+$/gm, '') : this.input;
+    },
+    init() {
+      this.input = this.inputContext.input;
+      this.size = this.inputContext.size || this.size;
+      this.placeholder = this.inputContext.placeholder;
+      this.type = this.inputContext.type;
+      this.clearable = this.inputContext.clearable || this.clearable;
+      this.inputDisable = this.inputContext.inputDisable;
+      this.trim = this.inputContext.trim;
+      this.showPwd = this.inputContext.showPwd;
+      this.name = this.inputContext.name;
+      this.style = this.inputContext.style;
+      this.suffixIcon = this.inputContext.suffixIcon || this.suffixIcon;
+    }
+  }
+};
+

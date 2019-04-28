@@ -9,7 +9,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import selects from '@/mixins/selects';
+import { selects } from './mixin';
 
 /**
  * selector component description
@@ -38,6 +38,17 @@ export default {
     return {
 
     };
+  },
+  watch: {
+    selectContext: {
+      handler(curVal) {
+        console.log('selects:');
+        console.log(curVal);
+        this.$set(this.selectContext, 'options', curVal.options);
+        // this.selectContext = curVal;
+      },
+      deep: true
+    }
   },
   components: {
 

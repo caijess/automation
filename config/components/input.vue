@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import input from '@/mixins/input';
+import { input } from './mixin';
 
 /**
  * input component description

@@ -8,7 +8,7 @@
       </template>
       <template v-if="selectContext.isShow">
         <el-col v-for="select in selectContext.data" :key="select.index" :span="select.span">
-          <select-input class="filter-head__select" :selectContext="select" @getSelectChange='getSelectChange'></select-input>
+          <select-input class="filter-head__select" :selectContext="select" @getSelectChange='getSelectChange(select)'></select-input>
         </el-col>
       </template>
       <template v-if="datePickerContext.isShow">
@@ -77,7 +77,6 @@ export default {
         isShow: false
       })
     }
-
   },
   data() {
     return {
@@ -89,6 +88,17 @@ export default {
       datePickerValue: []
     };
   },
+  watch: {
+    selectContext: {
+      handler(curVal) {
+        console.log('condition:');
+        console.log(curVal);
+        // ]        this.$forceUpdate();
+        this.$set(this.selectContext, 'options', curVal.options);
+      },
+      deep: true
+    }
+  },
   methods: {
     /**
        * 接受子组件传递的值，下拉框值改变
@@ -96,14 +106,7 @@ export default {
        * @param {Object} data
        */
     getSelectChange(data) {
-      if (data === 'date-picker') {
-        this.datePickerContext.isShowDate = true;
-        this.datePickerValue = [this.selectTime.startTime, this.selectTime.endTime];
-      } else {
-        this.datePickerContext.isShowDate = false;
-        this.getDateTime(data);
-        this.$emit('getSelectChange', this.isTime ? this.selectTime : data);
-      }
+      this.$emit('getSelectChange', data);
     },
     getDateTime(value) {
       this.selectTime.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -148,6 +151,7 @@ export default {
   mounted() {
 
   },
+
   components: {
     textInput,
     selectInput,
@@ -156,5 +160,24 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  @include filter();
+
+  .filter-head {
+    height: 60px;
+    line-height: 60px;
+    .filter-head__row {
+      background-color: #fff;
+      padding: 0 25px;
+      .el-col {
+        margin-right: 20px;
+      }
+    }
+    .filter-head__text, .filter-head__select, .filter-head__datePicker {
+      /deep/ span {
+        font-size: 13px;
+      }
+    }
+    .filter-head__datePicker {
+      text-align: left;
+    }
+  }
 </style>

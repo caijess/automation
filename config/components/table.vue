@@ -2,11 +2,11 @@
   <section class="table-page">
     <el-table :data="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :row-key="rowKey" :border='isBorder' style="width: 100%;font-size:12px;" v-loading="loading" id="tableData" v-bind="$attrs" v-on="$listeners">
       <template v-for="(item,key) in tableHeader">
-        <el-table-column :sortable="sortAble(getItemKey(item,key,'prop'))" :prop="getItemKey(item,key,'prop')" :label="getItemKey(item,key,'label')" :align="getItemKey(item,key,'align')" :width="getItemKey(item,key,'width')" :key="key" v-bind="isString(item)?null:item.attr" v-if="customize.includes(getItemKey(item,key,'prop'))" v-on="$listeners">
-          <template slot-scope="scope">
+        <el-table-column     :sortable="sortAble(getItemKey(item,key,'prop'))" :prop="getItemKey(item,key,'prop')" :label="getItemKey(item,key,'label')" :align="getItemKey(item,key,'align')" :width="getItemKey(item,key,'width')" :key="key" v-bind="isString(item)?null:item.attr" v-if="customize.includes(getItemKey(item,key,'prop'))" v-on="$listeners">
+          <template slot-scope="scope" >
             <temp-var :prop="getItemKey(item,key,'prop')">
               <template v-slot="{prop}">
-                <table-row :rowData="scope" :customize="customize" :rowKey="prop" :class-name="isString(item)?null:item.class">
+                <table-row :rowData= "scope" :customize="customize" :rowKey="prop" :class-name="isString(item)?null:item.class">
                   <template #[prop] v-if="customize.includes(prop)" v-sot="{prop}">
                     <slot :name="prop" :rowData="scope.row[prop]" :rows="scope.row"></slot>
                   </template>
@@ -15,7 +15,7 @@
             </temp-var>
           </template>
         </el-table-column>
-        <el-table-column :sortable="sortAble(getItemKey(item,key,'prop'))" :prop="getItemKey(item,key,'prop')" :label="getItemKey(item,key,'label')" :align="getItemKey(item,key,'align')" :width="getItemKey(item,key,'width')" :key="key" v-bind="isString(item)?null:item.attr" v-else>
+        <el-table-column :type="getItemKey(item,key,'type')"   :sortable="sortAble(getItemKey(item,key,'prop'))" :prop="getItemKey(item,key,'prop')" :label="getItemKey(item,key,'label')" :align="getItemKey(item,key,'align')" :width="getItemKey(item,key,'width')" :key="key" v-bind="isString(item)?null:item.attr" v-else>
         </el-table-column>
       </template>
     </el-table>
@@ -28,9 +28,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-import table from './table.js';
-import tempVar from './tempVar.js'; // 创建局域变量
-import tableRow from './tableRow.js';
+import { table } from './mixin';
+import tempVar from './tempVar'; // 创建局域变量
+import tableRow from './tableRow';
 
 
 /**
@@ -197,6 +197,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@mixin center($width,$height){
+  width: $width;
+  height: $height;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -($height) / 2;
+  margin-left: -($width) / 2;
+}
   /deep/ .el-table {
     thead {
       color: $color-333;
@@ -232,6 +241,8 @@ export default {
   }
 
   .table-page__pagination {
-    @extend %table-pagination;
+      width: 100%;
+  text-align: center;
+  margin: 30px 0 20px 0;
   }
 </style>
