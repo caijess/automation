@@ -1,22 +1,31 @@
 {
-  "name": "template-automation",
-  "version": "1.1.2",
-  "description": "auto make page",
+  "name": "automation-template",
+  "version": "1.0.1",
+  "description": " npm install automation-template --save-dev",
   "main": "index.js",
-  "bin": {
+  "bin":{
     "autopage": "./index.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "node"
-  ],
-  "author": "caijiexuan",
-  "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "inquirer": "^6.3.1"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caijess/automation.git"
+  },
+  "keywords": [
+    "automation",
+    "table"
+  ],
+  "author": "jessycai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caijess/automation/issues"
+  },
+  "homepage": "https://github.com/caijess/automation#readme"
 }

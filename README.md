@@ -1,5 +1,5 @@
 # automation
 
 ```
-npm install template-automation --save-dev
+npm install automation-template --save-dev
 ```
