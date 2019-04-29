@@ -1,18 +1,12 @@
 <template>
   <section class="page">
-    <span v-text="name"></span>
-    <el-input
-      v-model.trim="input"
-      :size="size"
-      :placeholder="placeholder"
-      :type="type"
-      :clearable="
-      clearable"
-      :disabled="inputDisable"
-      :style="style"
-      :suffix-icon="suffixIcon"
-      @blur="getInput"
-    >
+    <el-row>
+      <el-col :span="4">
+        <div class="key-name" v-text="name"></div>
+      </el-col>
+      <el-col :span="20">
+        <el-input v-model.trim="input" :size="size" :placeholder="placeholder" :type="type" :clearable="
+      clearable" :disabled="inputDisable" :style="style" :suffix-icon="suffixIcon" @blur="getInput">
     <template slot="prefix">
       <slot name="headSearch"></slot>
     </template>
@@ -20,6 +14,8 @@
       <slot name="endSearch"></slot>
     </template>
     </el-input>
+         </el-col>
+    </el-row>
   </section>
 </template>
 
@@ -27,16 +23,16 @@
 import { input } from './mixin';
 
 /**
- * input component description
- * @vuedoc
- * @exports component/input
- */
+   * input component description
+   * @vuedoc
+   * @exports component/input
+   */
 export default {
   name: 'inputs',
   props: {
     /**
-     * 输入框的Value值
-     */
+       * 输入框的Value值
+       */
     inputContext: {
       required: true,
       type: Object,
@@ -59,9 +55,9 @@ export default {
   computed: {},
   methods: {
     /**
-     * 向父组件传递输入框的当前Value值.
-     * @method getInput
-     */
+       * 向父组件传递输入框的当前Value值.
+       * @method getInput
+       */
     getInput() {
       this.inputContext.input = this.input;
       this.$emit('inputValue', this.input);
@@ -72,4 +68,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.key-name{
+  text-align: left;
+  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 60px;
+}
 </style>
