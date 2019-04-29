@@ -14,7 +14,7 @@ const copy = function (src, dst) {
      
     paths.forEach(function (path) {
       var _src = src + '/' + path,
-        _dst = dst + '/auto' + path,
+        _dst = dst  +'/'+ path,
         readable, writable;
       
       stat(_src, function (err, st) {
