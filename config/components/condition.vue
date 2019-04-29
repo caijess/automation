@@ -88,17 +88,14 @@ export default {
       datePickerValue: []
     };
   },
-  watch: {
-    selectContext: {
-      handler(curVal) {
-        console.log('condition:');
-        console.log(curVal);
-        // ]        this.$forceUpdate();
-        this.$set(this.selectContext, 'options', curVal.options);
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   selectContext: {
+  //     handler(curVal) {
+  //       // this.$set(this.selectContext, 'options', curVal.options);
+  //     },
+  //     deep: true
+  //   }
+  // },
   methods: {
     /**
        * 接受子组件传递的值，下拉框值改变
@@ -136,7 +133,8 @@ export default {
       }
     },
     changeTime(value) {
-      this.$emit('getSelectChange', { startTime: value[0], endTime: value[1] });
+      
+      this.$emit('getSelectChange', { startTime: value!=null?value[0]:"", endTime:  value!=null?value[1]:"" });
     },
     query() {
       this.$emit('query');

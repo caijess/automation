@@ -1,8 +1,8 @@
 <template>
   <section class="page">
-    <span v-text="name"></span>
-    <el-select v-model="value" placeholder="请选择" :size="size" :disabled="disabled" :clearable="clearable" :style="style" :multiple="multiple" @change='getSelectChange'>
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+    <span v-text="selectContext.name"></span>
+    <el-select v-model="selectContext.value" placeholder="请选择" :size="size" :disabled="disabled" :clearable="clearable" :style="style" :multiple="multiple" @change='getSelectChange'>
+      <el-option v-for="item in selectContext.options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
       </el-option>
     </el-select>
   </section>
@@ -38,17 +38,6 @@ export default {
     return {
 
     };
-  },
-  watch: {
-    selectContext: {
-      handler(curVal) {
-        console.log('selects:');
-        console.log(curVal);
-        this.$set(this.selectContext, 'options', curVal.options);
-        // this.selectContext = curVal;
-      },
-      deep: true
-    }
   },
   components: {
 
