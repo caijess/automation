@@ -11,17 +11,16 @@ const copy = function (src, dst) {
     if (err) {
       throw err;
     }
-
+     
     paths.forEach(function (path) {
       var _src = src + '/' + path,
-        _dst = dst + '/' + path,
+        _dst = dst + '/auto' + path,
         readable, writable;
-
+      
       stat(_src, function (err, st) {
         if (err) {
           throw err;
         }
-
         // 判断是否为文件
         if (st.isFile()) {
           // 创建读取流

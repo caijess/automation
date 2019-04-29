@@ -27,8 +27,8 @@ module.exports = {
 
 <script>
 import axios from 'axios';
-import reportTable from './components/tables';
-import selectInputExport from './components/condition';
+import reportTable from './autocomponents/tables';
+import selectInputExport from './autocomponents/condition';
 
 
 export default {
