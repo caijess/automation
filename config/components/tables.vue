@@ -208,7 +208,7 @@ export default {
 }
   /deep/ .el-table {
     thead {
-      color: $color-333;
+      color: #333;
       font-size: 12px;
       font-weight: bolder;
       .cell {
@@ -218,7 +218,7 @@ export default {
   }
   .table-page {
     .pagination {
-      color: $color-666;
+      color: #666;
     }
 
     .test {

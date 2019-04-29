@@ -207,7 +207,7 @@ async function setFilterContent() {
       name: 'type',
       message: '筛选框的类型',
       choices: [
-        'selector',
+        'select',
         'input',
         'date'
       ]
