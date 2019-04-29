@@ -14,7 +14,6 @@
   "devDependencies": {},
   "scripts": {
     "table":"node index  --save src  --name ddd --key 11121212"
-
   },
   "repository": {
     "type": "git",
