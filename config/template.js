@@ -32,7 +32,7 @@ import selectInputExport from './components/condition';
 
 
 export default {
-  name: 'test1',
+  name: ${name},
   data() {
     return {
       reportFormInfo: { isExport: 'wer/erw', hasPagination: false, tableDataUrl: '/report/getFormTableData', filterUrl: '/report/filterCondition', filter: [{ type: 'select', key: 'city', label: '城市' }, { type: 'input', key: 'keyname', label: '关键字' }, { type: 'date', key: 'date', label: '日期' }], tableHeader: [{ type: 'selection', prop: '-', label: '-', width: '110', url: '' }, { type: 'index', prop: 'index', label: 'fdfd', width: '120', url: '' }], fileKey: '11121212', fileName: 'test1' },
