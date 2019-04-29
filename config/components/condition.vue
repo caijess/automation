@@ -166,7 +166,7 @@ export default {
       background-color: #fff;
       padding: 0 25px;
       .el-col {
-        margin-right: 20px;
+        padding-right: 20px;
       }
     }
     .filter-head__text, .filter-head__select, .filter-head__datePicker {
