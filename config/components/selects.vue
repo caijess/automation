@@ -1,10 +1,16 @@
 <template>
   <section class="page">
-    <span v-text="selectContext.name"></span>
+     <el-row>
+      <el-col :span="4">
+        <div class="key-name" v-text="name"></div>
+      </el-col>
+      <el-col :span="20">
     <el-select v-model="selectContext.value" placeholder="请选择" :size="size" :disabled="disabled" :clearable="clearable" :style="style" :multiple="multiple" @change='getSelectChange'>
       <el-option v-for="item in selectContext.options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
       </el-option>
     </el-select>
+    </el-col>
+    </el-row>
   </section>
 </template>
 
@@ -53,4 +59,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.key-name{
+  text-align: left;
+  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 60px;
+}
 </style>

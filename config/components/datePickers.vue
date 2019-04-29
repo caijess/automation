@@ -1,13 +1,12 @@
 <!-- 时间控件 todo:统一时间控件 -->
 <template>
   <div class="date-picker" :class="classList">
-    <!-- <div class="date-picker__prev">
-      <slot name="prev"></slot>
-    </div> -->
+
     <el-date-picker :size="size" v-bind="$attrs" v-model="datePickValue"
     v-on="$listeners"
     >
     </el-date-picker>
+
   </div>
 </template>
 

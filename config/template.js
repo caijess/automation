@@ -35,7 +35,8 @@ export default {
   name: ${name},
   data() {
     return {
-      reportFormInfo: ${opts},      hasData: false,
+      reportFormInfo: ${opts},
+      hasData: false,
       // 输入框样式
       textContext: {
         isShow: false, // 是否显示
@@ -189,12 +190,12 @@ export default {
         for (const item of conditionGroup.input) {
           this.textContext.data.push({
             name: item.label + '：', // 输入框前面名称
-            span: 6, // 栅格宽度
+            span: this.getSpanKey(item), // 栅格宽度
             input: '', // 输入框初始化内容
             placeholder: '请输入' + item.label + '进行搜索', // 提示语
             inputDisable: false, // 是否禁用
             type: '', // input类型
-            style: 'width:80%', // input宽度
+            style: item.style === undefined ? 'width:80%' : item.style, // input宽度
             key: item.key
           });
         }
@@ -205,8 +206,8 @@ export default {
           this.selectContext.data.push({
             value: '',
             name: item.label + '：',
-            style: 'width:70%;',
-            span: 5,
+            style: item.style === undefined ? 'width:80%' : item.style,
+            span: this.getSpanKey(item),
             options: item.options,
             key: item.key,
             columnId: item.columnId,
@@ -227,7 +228,9 @@ export default {
             startPlaceholder: '开始时间',
             endPlaceholder: '结束时间',
             key: item.key,
-            span: 9,
+            span: this.getSpanKey(item, 'span', 9),
+            name: item.name,
+            style: item.style === undefined ? 'width:80%' : item.style,
             datePickerValue: [startTime, endTime]
           });
         }
@@ -241,7 +244,7 @@ export default {
     dealOptions(options) {
       for (const item of this.filterConditon) {
         if (item.type === 'select') {
-          item.options = _.find(options, o => o.key === item.key).options;
+          item.options = _.find(options, o => o.key === item.key) !== undefined ? _.find(options, o => o.key === item.key).options : [];
         }
       }
       this.dealCondition();
@@ -373,6 +376,14 @@ export default {
           reject(error);
         });
       });
+    },
+    /**
+       * 判断是否有span字段，没有返回默认值
+       * @param {Object} item 对象的
+       * @param {String} key 参数
+       */
+    getSpanKey(item, key = 'span', size = 8) {
+      return Object.keys(item).includes(key) ? item[key] : size;
     }
   },
   components: {
@@ -410,8 +421,7 @@ export default {
     }
   </style>
 
-
-  `
+`
   },
   entryTemplate: `import Main from './main.vue'
 export default Main`
