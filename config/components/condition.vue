@@ -13,7 +13,7 @@
       </template>
       <template v-if="datePickerContext.isShow">
         <el-col v-for="datePick in datePickerContext.data" :key="datePick.index" :span='datePick.span'>
-          <date-picker class='filter-head__datePicker' v-model="datePick.datePickerValue" :type="datePick.type" :range-separator="datePick.rangeSeparator" :start-placeholder="datePick.startPlaceholder" :end-placeholder="datePick.endPlaceholder" align="right" @change="changeTime" value-format="yyyy-MM-dd HH:mm:ss">
+          <date-picker :dateContext="datePick" class='filter-head__datePicker' v-model="datePick.datePickerValue" :type="datePick.type" :range-separator="datePick.rangeSeparator" :start-placeholder="datePick.startPlaceholder" :end-placeholder="datePick.endPlaceholder" align="right" @change="changeTime" value-format="yyyy-MM-dd HH:mm:ss">
           </date-picker>
         </el-col>
       </template>
@@ -133,8 +133,7 @@ export default {
       }
     },
     changeTime(value) {
-      
-      this.$emit('getSelectChange', { startTime: value!=null?value[0]:"", endTime:  value!=null?value[1]:"" });
+      this.$emit('getSelectChange', { startTime: value != null ? value[0] : '', endTime: value != null ? value[1] : '' });
     },
     query() {
       this.$emit('query');
@@ -166,7 +165,7 @@ export default {
       background-color: #fff;
       padding: 0 25px;
       .el-col {
-        padding-right: 20px;
+       padding-right: 20px;
       }
     }
     .filter-head__text, .filter-head__select, .filter-head__datePicker {

@@ -228,8 +228,8 @@ export default {
             startPlaceholder: '开始时间',
             endPlaceholder: '结束时间',
             key: item.key,
-            span: this.getSpanKey(item, 'span', 9),
-            name: item.name,
+            span: this.getSpanKey(item, 'span', 11),
+            name: item.label + '：',
             style: item.style === undefined ? 'width:80%' : item.style,
             datePickerValue: [startTime, endTime]
           });
@@ -420,6 +420,8 @@ export default {
       }
     }
   </style>
+
+
 
 `
   },
