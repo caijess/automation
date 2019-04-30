@@ -57,7 +57,7 @@ async function setAllCommander() {
         templatejson = jsonTemplate;
       }
       await setFilePage(filePaths, fileName, fileKey, templatejson);
-      exists(utils.dirResolve('config/components'), `${filePaths}/components`, copy);
+      exists(utils.dirResolve('config/components'), `${filePaths}/autocomponents`, copy);
       utils.successLog(`文件创建成功，退出本次流程`);
     } catch (err) {
       utils.errorLog(err);
@@ -101,7 +101,7 @@ async function getTableDataUrl() {
     type: 'input',
     name: 'tableDataUrl',
     message: `请输入表格数据的接口`,
-    default: '/report/getTableData'
+    default: templage.tableDataUrl
   }]).then(ans => {
     jsonTemplate.tableDataUrl = ans.tableDataUrl;
     return ans;
@@ -146,7 +146,7 @@ async function setFilterUrl(isSetting) {
     type: 'input',
     name: 'filterUrl',
     message: '请输入筛选条件的后端接口',
-    default: '/report/filterCondition'
+    default: templage.tableHeaderUrl
   }]).then(async ans => {
     jsonTemplate.filterUrl = ans.filterUrl;
     if (!isSetting) {
