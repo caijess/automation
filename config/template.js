@@ -106,7 +106,7 @@ export default {
       } else {
         this.tableHeader = this.reportFormInfo.tableHeader;
       }
-      // this.filterHeader();// header去重
+      this.filterHeader();// header去重
       this.getSlotHeader(); // 自定义样式head
       this.hasData = true;
       if (keys.includes('isExport')) { // 展示导出按鈕
