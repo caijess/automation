@@ -106,6 +106,7 @@ export default {
       } else {
         this.tableHeader = this.reportFormInfo.tableHeader;
       }
+      // this.filterHeader();// header去重
       this.getSlotHeader(); // 自定义样式head
       this.hasData = true;
       if (keys.includes('isExport')) { // 展示导出按鈕
@@ -116,6 +117,17 @@ export default {
       if (keys.includes('hasPagination')) { // 是否分页
         this.pageInfo.isShow = this.reportFormInfo.hasPagination;
       }
+    },
+    /**
+         * 表头去重.
+         * @method filterHeader
+         */
+    filterHeader() {
+      const obj = {};
+      this.tableHeader = this.tableHeader.reduce((cur, next) => {
+        obj[next.prop] ? '' : obj[next.prop] = true && cur.push(next);
+        return cur;
+      }, []); // 设置cur默认类型为数组，并且初始值为空的数组
     },
     /**
          * 点击跳转事件.
@@ -420,7 +432,6 @@ export default {
       }
     }
   </style>
-
 
 
 `

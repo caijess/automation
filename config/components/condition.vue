@@ -13,7 +13,7 @@
       </template>
       <template v-if="datePickerContext.isShow">
         <el-col v-for="datePick in datePickerContext.data" :key="datePick.index" :span='datePick.span'>
-          <date-picker :dateContext="datePick" class='filter-head__datePicker' v-model="datePick.datePickerValue" :type="datePick.type" :range-separator="datePick.rangeSeparator" :start-placeholder="datePick.startPlaceholder" :end-placeholder="datePick.endPlaceholder" align="right" @change="changeTime" value-format="yyyy-MM-dd HH:mm:ss">
+          <date-picker :dateContext="datePick" class='filter-head__datePicker' v-model="datePick.datePickerValue" :type="datePick.type" :range-separator="datePick.rangeSeparator" :start-placeholder="datePick.startPlaceholder" :end-placeholder="datePick.endPlaceholder" align="right" @change="changeTime" value-format="yyyy/MM/dd HH:mm:ss">
           </date-picker>
         </el-col>
       </template>
@@ -106,26 +106,26 @@ export default {
       this.$emit('getSelectChange', data);
     },
     getDateTime(value) {
-      this.selectTime.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
+      this.selectTime.endTime = moment().format('YYYY/MM/DD HH:mm:ss');
       switch (value) {
         case '30min':
-          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(30, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(30, 'minutes').format('YYYY/MM/DD HH:mm:ss');
           this.isTime = true;
           break;
         case '1hour':
-          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(1, 'hour').format('YYYY/MM/DD HH:mm:ss');
           this.isTime = true;
           break;
         case '6hour':
-          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(6, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(6, 'hour').format('YYYY/MM/DD HH:mm:ss');
           this.isTime = true;
           break;
         case '12hour':
-          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(12, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(12, 'hour').format('YYYY/MM/DD HH:mm:ss');
           this.isTime = true;
           break;
         case '1day':
-          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss');
+          this.selectTime.startTime = moment(this.selectTime.endTime).subtract(1, 'day').format('YYYY/MM/DD HH:mm:ss');
           this.isTime = true;
           break;
         default:

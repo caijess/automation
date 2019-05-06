@@ -6,7 +6,7 @@
         <div class="key-name" v-text="dateContext.name"></div>
       </el-col>
       <el-col :span="21">
-        <el-date-picker :size="size" v-bind="$attrs" v-model="datePickValue" v-on="$listeners">
+        <el-date-picker :size="dateContext.size" v-bind="$attrs" v-model="datePickValue" v-on="$listeners" :format="dateContext.format">
         </el-date-picker>
       </el-col>
     </el-row>
@@ -32,15 +32,15 @@ export default {
       required: false,
       type: Object,
       default: () => ({
-        name: ''
+        name: '',
+        size: ''
       })
 
     }
   },
   data() {
     return {
-      datePickValue: this.$attrs.value,
-      size: 'medium'
+      datePickValue: this.$attrs.value
     };
   },
 
